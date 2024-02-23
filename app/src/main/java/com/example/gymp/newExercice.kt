@@ -4,13 +4,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun exercice(){
     var nameExercice by remember { mutableStateOf("") }
@@ -37,7 +42,7 @@ fun exercice(){
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.padding(12.dp))
 
         // Texte "What do you want to work?" cliquable pour ouvrir le menu
         Text(
@@ -73,7 +78,8 @@ fun exercice(){
                     menuExpanded = false
                 }
             )
-            DropdownMenuItem(text = {"Torse"},
+            DropdownMenuItem(
+                text = {"Torse"},
                 onClick = {
                     selectedBodyPart = "Torse"
                     menuExpanded = false
@@ -82,7 +88,7 @@ fun exercice(){
         }
 
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.padding(12.dp))
 
         OutlinedTextField(
             value = trainingTime,
@@ -91,16 +97,25 @@ fun exercice(){
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.padding(12.dp))
 
-        OutlinedTextField(
-            value = selectedDate,
-            onValueChange = { selectedDate = it },
-            label = { Text("Select date") },
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+// Champ pour la date  avec un DatePicker
+        TextField(
+            value = selectedDate.toString(),
+            onValueChange = {}, // Ignorer les changements de texte, car il sera rempli par DatePicker
+            label = { Text("Date de l'entrainement") },
+            trailingIcon = {
+                DatePicker(
+                    state = rememberDatePickerState()
+
+                )
+            },
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .width(20.dp)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.padding(24.dp))
 
         Button(
             onClick = {

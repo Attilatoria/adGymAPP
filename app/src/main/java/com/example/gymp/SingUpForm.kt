@@ -1,19 +1,20 @@
 package com.example.gymp
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
-import androidx.compose.material3.DatePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,10 +24,9 @@ fun singIN(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var poids by remember { mutableStateOf("") }
-    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+    var selectedDate by remember { mutableStateOf("") }
 
-    // Calculer l'âge en fonction de la date de naissance sélectionnée
-    val age = LocalDate.now().year - selectedDate.year
+
 
     LazyColumn(
         modifier = Modifier
@@ -52,26 +52,19 @@ fun singIN(navController: NavController) {
                     .padding(vertical = 8.dp)
             )
 
-            // Champ pour la date de naissance avec un DatePicker
             TextField(
-                value = selectedDate.toString(),
-                onValueChange = {}, // Ignorer les changements de texte, car il sera rempli par DatePicker
-                label = { Text("Date de naissance") },
-                trailingIcon = {
-                    DatePicker(
-                    state = rememberDatePickerState()
-
-                    )
-                },
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Email") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
             )
 
             TextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text("Email") },
+                value = selectedDate,
+                onValueChange = { selectedDate = it },
+                label = { Text("date of birth (dd-mm-yyyy)") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
