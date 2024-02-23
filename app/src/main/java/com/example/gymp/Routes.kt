@@ -14,6 +14,7 @@ fun AppNavigator() {
         composable("main") { Greeting(navController) }
         composable("detail") { singIN(navController) }
         composable("pagep"){pageP(navController)}
+        composable("newEx"){exercice()}
 
     }
 }

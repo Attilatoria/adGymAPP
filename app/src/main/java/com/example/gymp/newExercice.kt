@@ -22,7 +22,12 @@ fun exercice(){
         Spacer(modifier = Modifier.padding(12.dp))
 
         DropdownMenu(expanded = false, onDismissRequest = { /*TODO*/ }) {
-            DropdownMenuItem(text = { "" }, onClick = { /*TODO*/ })
+            DropdownMenuItem(text = { "Bras" }, onClick = { /*TODO*/ })
+            DropdownMenuItem(text = { "Jambe" }, onClick = { /*TODO*/ })
+            DropdownMenuItem(text = { "Dos" }, onClick = { /*TODO*/ })
+            DropdownMenuItem(text = { "Torse" }, onClick = { /*TODO*/ })
+
+
         }
     }
 }

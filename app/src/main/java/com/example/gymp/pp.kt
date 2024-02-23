@@ -26,7 +26,7 @@ fun pageP(navController: NavController){
             Image(painter = painterResource(id = R.drawable.home), contentDescription = "home", modifier = Modifier.size(50.dp))
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            IconButton(onClick = { navController.navigate("") }) {
+            IconButton(onClick = { navController.navigate("newEx") }) {
                 Image(painter = painterResource(id = R.drawable.plus), contentDescription = "addExercice", modifier = Modifier.size(50.dp))
 
             }
