@@ -13,8 +13,9 @@ fun AppNavigator() {
     NavHost(navController = navController, startDestination = "main") {
         composable("main") { Greeting(navController) }
         composable("detail") { singIN(navController) }
+        composable("newe"){exercice(navController)}
         composable("pagep"){pageP(navController)}
-        composable("newEx"){exercice(navController)}
+
 
     }
 }
