@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,11 +30,19 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+private lateinit var users: List<User>
 class MainActivity : ComponentActivity() {
+    
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val appDatabase = AppDatabase.getInstance(this)
+        val userDao = appDatabase.userDao()
+
+        GlobalScope.launch {
+             users = userDao.getAll()
+        }
 
         setContent {
             AppNavigator(appDatabase)
@@ -42,14 +51,12 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
-@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun Greeting(navController: NavController, appDatabase: AppDatabase) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val userDao = appDatabase.userDao()
-
+    var userFound = remember { mutableStateOf(false) }
+    val errorMessage = remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -58,13 +65,15 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             // Champ d'entrée pour l'email
             TextField(
                 value = email,
                 onValueChange = { email = it },
-                label =  {"Email"} ,
+                label =  { Text("Email") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
@@ -74,53 +83,60 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
             TextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { "Password" },
+                label = { Text("Password") },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
             )
-            Row {
-                // Bouton pour soumettre les informations
 
+            // Bouton pour soumettre les informations
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
                 Button(
                     onClick = {
-                        GlobalScope.launch {
-                            // Récupérer tous les utilisateurs de la base de données
-                            val users = userDao.getAll()
+                        // Vérifie les informations d'identification
+                        val user = users.find { it.Email == email && it.Password == password }
+                        if (user != null) {
+                            // Utilisateur trouvé, naviguer vers la page principale
+                            userFound.value = false
 
-                            // Vérifier les informations d'identification
-                            val userFound =
-                                users.find { it.Email == email && it.Password == password }
-
-                            if (userFound != null) {
-                                // Utilisateur trouvé, naviguer vers la page principale
-                                navController.navigate("pagep")
-                            } else {
-                                navController.navigate("pagep")
-                            }
+                            navController.navigate("pagep")
+                        } else {
+                            // Informer l'utilisateur que les informations d'identification sont incorrectes
+                            userFound.value = true
+                            errorMessage.value = "No user found."
                         }
                     },
-                    modifier = Modifier
-                        .padding(vertical = 16.dp)
+
+                    modifier = Modifier.width(100.dp),
                 ) {
-                    Text(text = "connexion")
+                    Text("Login", color = Color.White)
                 }
 
-                Spacer(modifier = Modifier.padding(60.dp))
-
-                // Bouton pour s'enregistrer
                 Button(
                     onClick = {
                         navController.navigate("detail")
-                    }
+                    },
+                    modifier = Modifier.width(100.dp),
                 ) {
-                    Text(text = "Inscription")
+                    Text(text = "Inscription", color = Color.White)
                 }
             }
 
+            // Affichage du message d'erreur
+            if (errorMessage.value.isNotEmpty()) {
+                Text(
+                    text = errorMessage.value,
+                    color = Color.Red,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
         }
     }
 }
+
 
 

@@ -12,13 +12,14 @@ import androidx.room.RoomDatabase
 
 @Entity
 data class User(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val Firstname: String,
     val Lastname : String,
     val Email : String,
     val Password : String,
     val Birthday: String
 )
+
 
 @Dao
 interface UserDao {

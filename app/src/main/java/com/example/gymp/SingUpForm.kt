@@ -85,20 +85,20 @@ fun singIN(navController: NavController, appDatabase: AppDatabase) {
             // Bouton pour soumettre les informations
             Button(
                 onClick = {
-                    GlobalScope.launch{
-                    // Créez un nouvel objet User avec les informations saisies
+
                     val user = User(
-                        id = 0, // Vous pouvez générer automatiquement l'ID ou le fournir à votre convenance
                         Firstname = nom,
                         Lastname = prenom,
                         Email = email,
                         Password = password,
                         Birthday = selectedDate
                     )
+                    GlobalScope.launch{
                     userDao.insert(user)
 
-                    // Naviguer vers la page principale après sauvegarde
-                    navController.navigate("main")}
+                    // Naviguer vers la page principale après sauvegarde et insertion
+                    }
+                    navController.navigate("main")
                 },
                 modifier = Modifier
                     .padding(vertical = 16.dp)
