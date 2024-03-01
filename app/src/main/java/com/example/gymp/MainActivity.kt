@@ -25,23 +25,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val appDatabase = AppDatabase.getInstance(this)
+
         setContent {
-            AppNavigator()
+            AppNavigator(appDatabase)
         }
     }
 }
 
 
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
-fun Greeting(navController: NavController) {
+fun Greeting(navController: NavController, appDatabase: AppDatabase) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val userDao = appDatabase.userDao()
+
 
     Box(
         modifier = Modifier
@@ -66,7 +74,7 @@ fun Greeting(navController: NavController) {
             TextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { "Mot de passe" },
+                label = { "Password" },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,13 +82,31 @@ fun Greeting(navController: NavController) {
             )
             Row {
                 // Bouton pour soumettre les informations
+
                 Button(
                     onClick = {
-                        navController.navigate("pagep")
-                    }
+                        GlobalScope.launch {
+                            // Récupérer tous les utilisateurs de la base de données
+                            val users = userDao.getAll()
+
+                            // Vérifier les informations d'identification
+                            val userFound =
+                                users.find { it.Email == email && it.Password == password }
+
+                            if (userFound != null) {
+                                // Utilisateur trouvé, naviguer vers la page principale
+                                navController.navigate("pagep")
+                            } else {
+                                navController.navigate("pagep")
+                            }
+                        }
+                    },
+                    modifier = Modifier
+                        .padding(vertical = 16.dp)
                 ) {
-                     Text(text = "connexion")
+                    Text(text = "connexion")
                 }
+
                 Spacer(modifier = Modifier.padding(60.dp))
 
                 // Bouton pour s'enregistrer

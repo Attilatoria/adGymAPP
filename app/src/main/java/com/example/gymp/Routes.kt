@@ -7,12 +7,12 @@ import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun AppNavigator() {
+fun AppNavigator(appDatabase: AppDatabase) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "main") {
-        composable("main") { Greeting(navController) }
-        composable("detail") { singIN(navController) }
+        composable("main") { Greeting(navController, appDatabase ) }
+        composable("detail") { singIN(navController, appDatabase) }
         composable("newe"){exercice(navController)}
         composable("pagep"){pageP(navController)}
 
