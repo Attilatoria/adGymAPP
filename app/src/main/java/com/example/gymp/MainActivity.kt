@@ -31,14 +31,18 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 private lateinit var users: List<User>
+private lateinit var appDatabase: AppDatabase
+private lateinit var userDao: UserDao
+private var userId: User? = null
+
 class MainActivity : ComponentActivity() {
     
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appDatabase = AppDatabase.getInstance(this)
-        val userDao = appDatabase.userDao()
+        appDatabase = AppDatabase.getInstance(this)
+        userDao = appDatabase.userDao()
 
         GlobalScope.launch {
              users = userDao.getAll()
@@ -97,6 +101,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
             ) {
                 Button(
                     onClick = {
+
                         // Vérifie les informations d'identification
                         val user = users.find { it.Email == email && it.Password == password }
                         if (user != null) {
@@ -104,6 +109,14 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                             userFound.value = false
 
                             navController.navigate("pagep")
+
+
+
+                                GlobalScope.launch {
+                                    // Once the user is authenticated, retrieve the user's ID
+                                     userId = userDao.getUserById(user.id)
+
+                                }
                         } else {
                             // Informer l'utilisateur que les informations d'identification sont incorrectes
                             userFound.value = true

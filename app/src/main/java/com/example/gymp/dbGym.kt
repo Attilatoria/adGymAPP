@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.Update
 
 @Entity
 data class User(
@@ -20,7 +21,7 @@ data class User(
     val Birthday: String
 )
 
-
+//CRUD
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user")
@@ -28,6 +29,12 @@ interface UserDao {
 
     @Insert
     suspend fun insert(user: User)
+
+    @Query("SELECT * FROM user WHERE id = :userId")
+    suspend fun getUserById(userId: Int): User?
+
+    @Update
+    suspend fun updateUser(user: User)
 }
 
 @Database(entities = [User::class], version = 1)
