@@ -15,6 +15,8 @@ fun AppNavigator(appDatabase: AppDatabase) {
         composable("detail") { singIN(navController, appDatabase) }
         composable("newe"){exercice(navController)}
         composable("pagep"){pageP(navController)}
+        composable("set"){ settings(navController) }
+
 
 
     }

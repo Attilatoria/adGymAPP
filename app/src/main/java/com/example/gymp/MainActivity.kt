@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 private lateinit var users: List<User>
 private lateinit var appDatabase: AppDatabase
 private lateinit var userDao: UserDao
-private var userId: User? = null
+var userId: User? = null
 
 class MainActivity : ComponentActivity() {
     
@@ -106,7 +106,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                         val user = users.find { it.Email == email && it.Password == password }
                         if (user != null) {
                             // Utilisateur trouvé, naviguer vers la page principale
-                            userFound.value = false
+                            userFound.value = true
 
                             navController.navigate("pagep")
 
@@ -119,7 +119,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                                 }
                         } else {
                             // Informer l'utilisateur que les informations d'identification sont incorrectes
-                            userFound.value = true
+                            userFound.value = false
                             errorMessage.value = "No user found."
                         }
                     },
