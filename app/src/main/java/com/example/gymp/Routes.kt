@@ -13,26 +13,10 @@ fun AppNavigator(appDatabase: AppDatabase) {
     NavHost(navController = navController, startDestination = "main") {
         composable("main") { Greeting(navController, appDatabase ) }
         composable("detail") { singIN(navController, appDatabase) }
-        composable("newe"){exercice(navController)}
-        composable("folow"){
-            nameExercice?.let { it1 ->
-                selectedBodyPart?.let { it2 ->
-                    trainingTime?.let { it3 ->
-                        selectedDate?.let { it4 ->
-                            ExerciceCard(name = it1,
-                                bodyPart = it2,
-                                time = it3,
-                                date = it4
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        composable("newe"){GymApp(exercises = mutableListOf(), navController)}
+        composable("folow"){ExerciseList(exercises = mutableListOf(), navController)}
         composable("pagep"){pageP(navController)}
         composable("set"){ settings(navController) }
-
-
 
 
     }

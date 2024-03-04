@@ -2,33 +2,41 @@ package com.example.gymp
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
-
-var nameExercice: String? = null
-var selectedBodyPart: String? = null
-var trainingTime: String? = null
-var selectedDate: String? = null
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExerciceCard(
-    name: String,
-    bodyPart: String,
-    time: String,
-    date: String
-) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = "Exercice name: $name")
-        Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "Body part: $bodyPart")
-        Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "Training time: $time minutes")
-        Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "Date: $date")
+fun ExerciseList(exercises: List<Exercise>, navController : NavController) {
+    Button(onClick = { navController.navigate("pagep") }) {
+        Text(text = "Back")
     }
+    Spacer(modifier = Modifier.padding(10.dp))
+    for (exercise in exercises) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(text = "Exercise: ${exercise.name}")
+                Text(text = "Body part: ${exercise.bodyPart}")
+                Text(text = "Training time: ${exercise.trainingTime} minutes")
+                Text(text = "Date: ${exercise.date}")
+            }
+        }
+    }
+    ExerciseList(exercises, navController)
 }
+
+
