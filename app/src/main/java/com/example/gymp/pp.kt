@@ -32,7 +32,7 @@ fun pageP(navController: NavController){
 
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            IconButton(onClick = { navController.navigate("") }) {
+            IconButton(onClick = { navController.navigate("folow") }) {
                 Image(painter = painterResource(id = R.drawable.goal), contentDescription = "objectif", modifier = Modifier.size(50.dp))
 
             }
