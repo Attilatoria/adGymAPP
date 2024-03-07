@@ -1,5 +1,5 @@
 package com.example.gymp
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,15 +27,18 @@ fun singIN(navController: NavController, appDatabase: AppDatabase) {
 
     val userDao = appDatabase.userDao()
 
-
+    Button(onClick = { navController.navigate("main") }) {
+        Text(text = "Back")
+    }
+    Spacer(modifier = Modifier.padding(30.dp))
 
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
         item {
+            Spacer(modifier = Modifier.padding(30.dp))
             TextField(
                 value = nom,
                 onValueChange = { nom = it },
@@ -95,10 +98,13 @@ fun singIN(navController: NavController, appDatabase: AppDatabase) {
                     )
                     GlobalScope.launch{
                     userDao.insert(user)
-
-                    // Naviguer vers la page principale après sauvegarde et insertion
                     }
-                    navController.navigate("main")
+                     nom = ""
+                     prenom = ""
+                     email = ""
+                     password = ""
+                     selectedDate =""
+
                 },
                 modifier = Modifier
                     .padding(vertical = 16.dp)

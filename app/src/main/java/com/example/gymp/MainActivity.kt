@@ -80,7 +80,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                 label =  { Text("Email") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = 12.dp)
             )
 
             // Champ d'entrée pour le mot de passe
@@ -91,7 +91,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = 12.dp)
             )
 
             // Bouton pour soumettre les informations
@@ -124,7 +124,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                         }
                     },
 
-                    modifier = Modifier.width(100.dp),
+                    modifier = Modifier.width(200.dp),
                 ) {
                     Text("Login", color = Color.White)
                 }
@@ -133,7 +133,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                     onClick = {
                         navController.navigate("detail")
                     },
-                    modifier = Modifier.width(100.dp),
+                    modifier = Modifier.width(200.dp),
                 ) {
                     Text(text = "Inscription", color = Color.White)
                 }

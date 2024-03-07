@@ -1,6 +1,7 @@
 package com.example.gymp
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,19 +17,23 @@ import androidx.navigation.NavController
 
 @Composable
 fun DoneExerciseList(doneExercises: List<Exercise>, navController : NavController) {
-    Button(onClick = { navController.navigate("pagep") }) {
-        Text(text = "Back")
-    }
 
     Column {
-        Text(text = "Done Exercises:", modifier = Modifier.padding(8.dp))
+        Button(onClick = { navController.navigate("pagep") }) {
+            Text(text = "Back")
+        }
+        Spacer(modifier = Modifier.padding(20.dp))
+        Text(text = "Finished workout:", modifier = Modifier.padding(14.dp))
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                
         ) {
-            items(doneExercises) { exercise ->
+
+            items(doneExercises) { exercisess ->
+                Spacer(modifier = Modifier.padding(20.dp))
+
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -37,10 +42,10 @@ fun DoneExerciseList(doneExercises: List<Exercise>, navController : NavControlle
                     Column(
                         modifier = Modifier.padding(16.dp)
                     ) {
-                        Text(text = "Exercise: ${exercise.name}")
-                        Text(text = "Body part: ${exercise.bodyPart}")
-                        Text(text = "Training time: ${exercise.trainingTime} minutes")
-                        Text(text = "Date: ${exercise.date}")
+                        Text(text = "Exercise: ${exercisess.name}")
+                        Text(text = "Body part: ${exercisess.bodyPart}")
+                        Text(text = "Training time: ${exercisess.trainingTime} minutes")
+                        Text(text = "Date: ${exercisess.date}")
                     }
                 }
             }

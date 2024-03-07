@@ -21,7 +21,7 @@ data class User(
     val Birthday: String
 )
 
-//CRUD
+
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user")
