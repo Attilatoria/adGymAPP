@@ -14,7 +14,8 @@ fun AppNavigator(appDatabase: AppDatabase) {
         composable("main") { Greeting(navController, appDatabase ) }
         composable("detail") { singIN(navController, appDatabase) }
         composable("newe") { GymApp(exerciceDao = appDatabase.exerciceDao(), navController = navController) }
-        composable("folow"){DoneExerciseList(doneExercises = mutableListOf(),navController)}
+        composable("folow"){DisplayExercisesFromDatabase(exerciceDao = appDatabase.exerciceDao())}
+//        composable("folow"){DoneExerciseList(doneExercises = mutableListOf(),navController)}
         composable("pagep"){pageP(navController)}
         composable("set"){ settings(navController) }
 

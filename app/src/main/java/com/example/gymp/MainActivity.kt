@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 private lateinit var users: List<User>
 private lateinit var appDatabase: AppDatabase
 private lateinit var userDao: UserDao
-var userId: User? = null
+var userId: Int? = null
 
 class MainActivity : ComponentActivity() {
     
@@ -114,8 +114,9 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
 
                                 GlobalScope.launch {
                                     // Once the user is authenticated, retrieve the user's ID
-                                     userId = userDao.getUserById(user.id)
+//                                     userId = userDao.getUserById(user.id)
 
+                                    userId = user?.id
                                 }
                         } else {
                             // Informer l'utilisateur que les informations d'identification sont incorrectes

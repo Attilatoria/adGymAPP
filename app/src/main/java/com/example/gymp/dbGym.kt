@@ -43,13 +43,18 @@ data class Exercice(
     val ExerciceName: String,
     val BodyPart: String,
     val TrainingTime: Double,
-    val TrainingDate: String // Utilisez Long pour stocker les dates dans Room
+    val TrainingDate: String,
+    val TrainingDone: Boolean,
+    val idUserExercice: Int
 )
 
 @Dao
 interface ExerciceDao {
     @Insert
     suspend fun insert(exercice: Exercice)
+
+    @Query("SELECT * FROM Exercice WHERE idUserExercice = :userId")
+    suspend fun getExercicesByUserId(userId: Int): List<Exercice>
 }
 
 
@@ -57,7 +62,7 @@ interface ExerciceDao {
 @Database(entities = [User::class, Exercice::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun exerciceDao(): ExerciceDao // Ajoutez cette fonction abstraite
+    abstract fun exerciceDao(): ExerciceDao
 
     companion object {
         @Volatile
