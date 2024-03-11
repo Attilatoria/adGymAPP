@@ -36,13 +36,30 @@ interface UserDao {
     @Update
     suspend fun updateUser(user: User)
 }
+//////////////////////////////////////////////////// Exercice DB //////////////////////////////////////////////
+@Entity
+data class Exercice(
+    @PrimaryKey(autoGenerate = true) val idExercice: Int = 0,
+    val ExerciceName: String,
+    val BodyPart: String,
+    val TrainingTime: Double,
+    val TrainingDate: String // Utilisez Long pour stocker les dates dans Room
+)
 
-@Database(entities = [User::class], version = 1)
+@Dao
+interface ExerciceDao {
+    @Insert
+    suspend fun insert(exercice: Exercice)
+}
+
+
+//////////////////////////////////////////////////// DATABASE ////////////////////////////////////////////
+@Database(entities = [User::class, Exercice::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun exerciceDao(): ExerciceDao // Ajoutez cette fonction abstraite
 
     companion object {
-        // Singleton instance of AppDatabase
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
@@ -59,4 +76,5 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
+
 

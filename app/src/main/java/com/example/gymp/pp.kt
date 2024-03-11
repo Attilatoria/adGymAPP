@@ -2,15 +2,12 @@ package com.example.gymp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,43 +20,24 @@ import androidx.navigation.NavController
 
 @Composable
 fun pageP(navController: NavController){
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .background(color = Color.Blue)) {
-            Row {
-                IconButton( onClick = { navController.navigate("main") }) {
-                    Image(painter = painterResource(id = R.drawable.home), contentDescription = "home", modifier = Modifier.size(50.dp))
-                }
-                Spacer(modifier = Modifier.padding(10.dp))
+    Column(modifier = Modifier
+        .fillMaxWidth()
+    ) {
+        Menu(navController)
 
-                IconButton(onClick = { navController.navigate("newe") }) {
-                    Image(painter = painterResource(id = R.drawable.plus), contentDescription = "newexercice", modifier = Modifier.size(50.dp))
-                }
-                Spacer(modifier = Modifier.padding(10.dp))
-                IconButton(onClick = { navController.navigate("folow") }) {
-                    Image(painter = painterResource(id = R.drawable.goal), contentDescription = "objectif", modifier = Modifier.size(50.dp))
-                }
-                Spacer(modifier = Modifier.padding(10.dp))
-                IconButton(onClick = { navController.navigate("set") }) {
-                    Image(painter = painterResource(id = R.drawable.setting), contentDescription = "Settings",modifier = Modifier.size(50.dp))
-                }
-                Spacer(modifier = Modifier.padding(10.dp))
-            }
-        }
-
-//        Spacer(modifier = Modifier.padding(10.dp).background(color = Color.Blue))
 
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
-            .align(Alignment.CenterHorizontally)
-            .background(color = Color.Black))
+            .background(Color(0xFFF5F5DC)),
 
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        )
         {
             item {
                 Text(
                     text = "Arm exercise",
-                    color = Color.White,
+                    color = Color.Black,
                     fontSize = 20.sp
                 )
 
@@ -89,7 +67,7 @@ fun pageP(navController: NavController){
 ////////////////////////////////////////// EXERCICE FOR THE BACK /////////////////////////////////////////
                 Text(
                     text = "Back exercise",
-                    color = Color.White,
+                    color = Color.Black,
                     fontSize = 20.sp
                 )
 
@@ -119,7 +97,7 @@ fun pageP(navController: NavController){
 ////////////////////////////////////////// EXERCICE FOR THE SHOULDER /////////////////////////////////////////
                 Text(
                     text = "Shoulder exercise",
-                    color = Color.White,
+                    color = Color.Black,
                     fontSize = 20.sp
                 )
 
@@ -149,8 +127,9 @@ fun pageP(navController: NavController){
 ////////////////////////////////////////// EXERCICE FOR THE ABS /////////////////////////////////////////
                 Text(
                     text = "Abs exercise",
-                    color = Color.White,
+                    color = Color.Black,
                     fontSize = 20.sp
+
                 )
 
                 Spacer(modifier = Modifier.padding(10.dp))

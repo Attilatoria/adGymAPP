@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,19 +15,20 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun DoneExerciseList(doneExercises: List<Exercise>, navController : NavController) {
+fun DoneExerciseList(doneExercises: List<Exercice>, navController : NavController) {
 
     Column {
-        Button(onClick = { navController.navigate("pagep") }) {
-            Text(text = "Back")
-        }
+//        Button(onClick = { navController.navigate("pagep") }) {
+//            Text(text = "Back")
+//        }
+        Menu(navController)
         Spacer(modifier = Modifier.padding(20.dp))
         Text(text = "Finished workout:", modifier = Modifier.padding(14.dp))
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                
+
         ) {
 
             items(doneExercises) { exercisess ->
@@ -42,10 +42,10 @@ fun DoneExerciseList(doneExercises: List<Exercise>, navController : NavControlle
                     Column(
                         modifier = Modifier.padding(16.dp)
                     ) {
-                        Text(text = "Exercise: ${exercisess.name}")
-                        Text(text = "Body part: ${exercisess.bodyPart}")
-                        Text(text = "Training time: ${exercisess.trainingTime} minutes")
-                        Text(text = "Date: ${exercisess.date}")
+                        Text(text = "Exercise: ${exercisess.ExerciceName}")
+                        Text(text = "Body part: ${exercisess.BodyPart}")
+                        Text(text = "Training time: ${exercisess.TrainingTime} minutes")
+                        Text(text = "Date: ${exercisess.TrainingDate}")
                     }
                 }
             }
