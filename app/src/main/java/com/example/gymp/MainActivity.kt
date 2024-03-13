@@ -30,10 +30,10 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-private lateinit var users: List<User>
+lateinit var users: List<User>
 private lateinit var appDatabase: AppDatabase
 private lateinit var userDao: UserDao
-var userId: Int? = null
+var userId: Int = 0
 
 class MainActivity : ComponentActivity() {
     
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Greeting(navController: NavController, appDatabase: AppDatabase) {
+fun Greeting(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var userFound = remember { mutableStateOf(false) }
@@ -116,7 +116,7 @@ fun Greeting(navController: NavController, appDatabase: AppDatabase) {
                                     // Once the user is authenticated, retrieve the user's ID
 //                                     userId = userDao.getUserById(user.id)
 
-                                    userId = user?.id
+                                    userId = user.id
                                 }
                         } else {
                             // Informer l'utilisateur que les informations d'identification sont incorrectes

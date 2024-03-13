@@ -10,6 +10,8 @@ import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Update
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Entity
 data class User(
@@ -31,7 +33,7 @@ interface UserDao {
     suspend fun insert(user: User)
 
     @Query("SELECT * FROM user WHERE id = :userId")
-    suspend fun getUserById(userId: Int): User?
+     fun getUserById(userId: Int): User?
 
     @Update
     suspend fun updateUser(user: User)
@@ -59,22 +61,30 @@ interface ExerciceDao {
 
 
 //////////////////////////////////////////////////// DATABASE ////////////////////////////////////////////
-@Database(entities = [User::class, Exercice::class], version = 1)
+@Database(entities = [User::class, Exercice::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun exerciceDao(): ExerciceDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
 
+    companion object {
+        val migration_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Migration logic
+            }
+        }
+
+        @Volatile
+    private var INSTANCE: AppDatabase? = null
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "AppDatabase"
-                ).build()
+                )
+                    .addMigrations(migration_1_2) // Add migration here
+                    .build()
                 INSTANCE = instance
                 instance
             }

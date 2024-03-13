@@ -17,13 +17,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun settings(navController: NavController) {
+fun settings(navController: NavController,userDao: UserDao) {
+    val user = users.find { it.id == userId }
+
     Column {
 
 
-//        Button(onClick = { navController.navigate("pagep") }) {
-//            Text(text = "Back")
-//        }
         Menu(navController)
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
 
@@ -37,7 +36,7 @@ fun settings(navController: NavController) {
 
             // Première partie
             Text(
-                text = "First Name: ${userId?.Firstname ?: ""}",
+                text = "First Name: ${user?.Firstname ?: ""}",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp
@@ -45,7 +44,7 @@ fun settings(navController: NavController) {
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             // Deuxième partie
             Text(
-                text = "Last Name: ${userId?.Lastname ?: ""}",
+                text = "Last Name: ${user?.Lastname ?: ""}",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp
@@ -53,7 +52,7 @@ fun settings(navController: NavController) {
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             // Troisième partie
             Text(
-                text = "Email: ${userId?.Email ?: ""}",
+                text = "Email: ${user?.Email ?: ""}",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp
@@ -68,43 +67,3 @@ fun settings(navController: NavController) {
 }
 
 
-//@Composable
-//fun CustomDialog() {
-//    var showDialog by remember { mutableStateOf(false) }
-//    var textFieldValue by remember { mutableStateOf("") }
-//
-//    if (showDialog) {
-//        AlertDialog(
-//            onDismissRequest = { showDialog = false },
-//            title = { Text("Update") },
-//            text = {
-//                Column {
-//                    TextField(
-//                        value = textFieldValue,
-//                        onValueChange = { textFieldValue = it },
-//                        label = { Text("Enter something") }
-//                    )
-//                }
-//            },
-//            confirmButton = {
-//                Button(onClick = {
-//                    showDialog = false
-//                }) {
-//                    Text("OK")
-//                }
-//            },
-//            dismissButton = {
-//                Button(onClick = { showDialog = false }) {
-//                    Text("Cancel")
-//                }
-//            },
-//            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
-//        )
-//    }
-//    Button(
-//        onClick = { showDialog = true },
-//        modifier = Modifier.width(100.dp)
-//    ) {
-//        Text("Update", color = Color.White)
-//    }
-//}

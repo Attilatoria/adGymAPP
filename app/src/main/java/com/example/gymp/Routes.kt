@@ -11,13 +11,12 @@ fun AppNavigator(appDatabase: AppDatabase) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "main") {
-        composable("main") { Greeting(navController, appDatabase ) }
+        composable("main") { Greeting(navController) }
         composable("detail") { singIN(navController, appDatabase) }
-        composable("newe") { GymApp(exerciceDao = appDatabase.exerciceDao(), navController = navController) }
-        composable("folow"){DisplayExercisesFromDatabase(exerciceDao = appDatabase.exerciceDao())}
-//        composable("folow"){DoneExerciseList(doneExercises = mutableListOf(),navController)}
+        composable("newe") { GymApp(exerciceDao = appDatabase.exerciceDao(), navController ) }
+        composable("folow"){DisplayExercisesFromDatabase(exerciceDao = appDatabase.exerciceDao(),navController )}
         composable("pagep"){pageP(navController)}
-        composable("set"){ settings(navController) }
+        composable("set"){ settings(navController, appDatabase.userDao()) }
 
 
     }

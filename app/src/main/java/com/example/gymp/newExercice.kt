@@ -9,8 +9,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -89,33 +87,3 @@ fun GymApp(exerciceDao: ExerciceDao, navController: NavController) {
     }
 }
 
-@Composable
-fun DisplayExercisesFromDatabase(exerciceDao: ExerciceDao) {
-    // Variable pour stocker les exercices de la base de données
-    val exercices: MutableState<List<Exercice>> = remember { mutableStateOf(emptyList()) }
-
-    // Utilisation de LaunchedEffect pour récupérer les exercices dès que l'écran est composé
-    LaunchedEffect(true) {
-        // Récupération des exercices de la base de données dans un thread séparé
-
-        val exercisesFromDb = userId?.let { exerciceDao.getExercicesByUserId(it) }
-        // Mise à jour de la liste d'exercices dans le thread principal
-        if (exercisesFromDb != null) {
-            exercices.value = exercisesFromDb
-        }
-    }
-
-    // Affichage des exercices dans une colonne
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = "List of Exercises")
-        Spacer(modifier = Modifier.height(8.dp))
-        // Boucle pour afficher chaque exercice dans la liste
-        for (exercise in exercices.value) {
-            Text(text = "Exercise Name: ${exercise.ExerciceName}")
-            Text(text = "Body Part: ${exercise.BodyPart}")
-            Text(text = "Training Time: ${exercise.TrainingTime}")
-            Text(text = "Training Date: ${exercise.TrainingDate}")
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-    }
-}
