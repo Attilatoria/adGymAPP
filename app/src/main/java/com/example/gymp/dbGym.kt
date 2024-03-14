@@ -57,6 +57,9 @@ interface ExerciceDao {
 
     @Query("SELECT * FROM Exercice WHERE idUserExercice = :userId")
     suspend fun getExercicesByUserId(userId: Int): List<Exercice>
+
+        @Query("DELETE FROM Exercice WHERE ExerciceName = :nameExercice AND idUserExercice = :userId")
+    suspend fun deleteExercice(nameExercice : String, userId: Int)
 }
 
 

@@ -20,6 +20,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
+var globalExerciseName by mutableStateOf("")
 @Composable
 fun GymApp(exerciceDao: ExerciceDao, navController: NavController) {
     var exerciseName by remember { mutableStateOf("") }
@@ -71,6 +72,9 @@ fun GymApp(exerciceDao: ExerciceDao, navController: NavController) {
                         idUserExercice = it
                     )
                 }
+
+                globalExerciseName = exerciseName
+
                 GlobalScope.launch {
                     if (newExercise != null) {
                         exerciceDao.insert(newExercise)
