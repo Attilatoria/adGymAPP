@@ -61,8 +61,21 @@ interface ExerciceDao {
         @Query("DELETE FROM Exercice WHERE ExerciceName = :nameExercice AND idUserExercice = :userId")
     suspend fun deleteExercice(nameExercice : String, userId: Int)
 }
+//////////////////////////////////////////////////// Coach DB //////////////////////////////////////////////
+@Entity
+data class Coach(
+    @PrimaryKey(autoGenerate = true) val idCoach: Int = 0,
+    val nameCoach: String,
+    val idUserForCoach: Int,
+)
+
+@Dao
+interface CoachDao{
+    @Insert
+    suspend fun insertCoach(newCoach: Coach)
 
 
+}
 //////////////////////////////////////////////////// DATABASE ////////////////////////////////////////////
 @Database(entities = [User::class, Exercice::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {

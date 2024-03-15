@@ -17,6 +17,7 @@ fun AppNavigator(appDatabase: AppDatabase) {
         composable("folow"){DisplayExercisesFromDatabase(exerciceDao = appDatabase.exerciceDao(),navController )}
         composable("pagep"){pageP(navController)}
         composable("set"){ settings(navController, appDatabase.userDao()) }
+        composable("mes"){SendMessage(navController)}
 
 
     }
