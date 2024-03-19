@@ -36,7 +36,7 @@ interface UserDao {
      fun getUserById(userId: Int): User?
 
     @Update
-    suspend fun updateUser(user: User)
+     fun updateUser(user: User)
 }
 //////////////////////////////////////////////////// Exercice DB //////////////////////////////////////////////
 @Entity
