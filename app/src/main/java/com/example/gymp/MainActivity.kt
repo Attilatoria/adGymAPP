@@ -26,7 +26,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -37,16 +36,14 @@ var userId: Int = 0
 
 class MainActivity : ComponentActivity() {
     
-    @OptIn(DelicateCoroutinesApi::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         appDatabase = AppDatabase.getInstance(this)
         userDao = appDatabase.userDao()
 
-        GlobalScope.launch {
-             users = userDao.getAll()
-        }
+
 
         setContent {
             AppNavigator(appDatabase)
@@ -61,7 +58,9 @@ fun Greeting(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var userFound = remember { mutableStateOf(false) }
     val errorMessage = remember { mutableStateOf("") }
-
+    GlobalScope.launch {
+        users = userDao.getAll()
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
