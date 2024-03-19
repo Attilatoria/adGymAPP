@@ -102,7 +102,7 @@ fun Greeting(navController: NavController) {
                     onClick = {
 
                         // Vérifie les informations d'identification
-                        val user = users.find { it.Email == email && it.Password == password }
+                        val user = users.find { it.Email == email.trim() && it.Password == password.trim() }
                         if (user != null) {
                             // Utilisateur trouvé, naviguer vers la page principale
                             userFound.value = true

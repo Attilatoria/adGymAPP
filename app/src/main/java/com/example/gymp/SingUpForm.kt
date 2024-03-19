@@ -31,6 +31,11 @@ fun singIN(navController: NavController, appDatabase: AppDatabase) {
 
     val userDao = appDatabase.userDao()
 
+    val emailRegex = Regex("^\\S+@\\S+\\.\\S+$")
+    val dateRegex = Regex("^\\d{2}-\\d{2}-\\d{4}$")
+
+
+
     Column {
 
         Spacer(modifier = Modifier.padding(15.dp))
@@ -95,13 +100,18 @@ fun singIN(navController: NavController, appDatabase: AppDatabase) {
                     onClick = {
                         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || selectedDate.isEmpty() || password.isEmpty()) {
                             errorMessage = "Veuillez remplir tous les champs."
+                        }else if (!email.matches(emailRegex)) { // Vérification de l'e-mail
+                                errorMessage = "Veuillez entrer une adresse e-mail valide."
+                        } else if (!selectedDate.matches(dateRegex)) { // Vérification de la date
+                            errorMessage = "Veuillez entrer une date de naissance valide au format dd-mm-yyyy."
+
                         } else {
                             val user = User(
-                                Firstname = nom,
-                                Lastname = prenom,
-                                Email = email,
-                                Password = password,
-                                Birthday = selectedDate
+                                Firstname = nom.trim(),
+                                Lastname = prenom.trim(),
+                                Email = email.trim(),
+                                Password = password.trim(),
+                                Birthday = selectedDate.trim()
                             )
                             GlobalScope.launch {
                                 userDao.insert(user)
