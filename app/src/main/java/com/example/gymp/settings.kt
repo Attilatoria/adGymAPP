@@ -30,6 +30,8 @@ fun settings(navController: NavController, userDao: UserDao) {
     var updatedFirstName by remember { mutableStateOf(user?.Firstname ?: "") }
     var updatedLastName by remember { mutableStateOf(user?.Lastname ?: "") }
     var updatedEmail by remember { mutableStateOf(user?.Email ?: "") }
+    var updatedPassword by remember { mutableStateOf(user?.Password ?: "") }
+
     var showDialog by remember { mutableStateOf(false) }
 
     Column {
@@ -67,6 +69,14 @@ fun settings(navController: NavController, userDao: UserDao) {
                 fontSize = 30.sp
             )
             Spacer(modifier = Modifier.padding(vertical = 15.dp))
+            //quatrieme partie
+            Text(
+                text = "Password: ${user?.Password ?: ""}",
+                color = Color.Black,
+                modifier = Modifier.fillMaxWidth(),
+                fontSize = 30.sp
+            )
+            Spacer(modifier = Modifier.padding(vertical = 15.dp))
             // Modifier le profil
             Button(onClick = { showDialog = true }) {
                 Text(text = "Update Profile")
@@ -93,7 +103,8 @@ fun settings(navController: NavController, userDao: UserDao) {
                                         it.copy(
                                             Firstname = updatedFirstName,
                                             Lastname = updatedLastName,
-                                            Email = updatedEmail
+                                            Email = updatedEmail,
+                                            Password = updatedPassword
                                         )
                                     )
                                 }
@@ -130,6 +141,12 @@ fun settings(navController: NavController, userDao: UserDao) {
                             value = updatedEmail,
                             onValueChange = { updatedEmail = it },
                             label = { Text("Email") }
+                        )
+                        Spacer(modifier = Modifier.padding(8.dp))
+                        TextField(
+                            value = updatedPassword,
+                            onValueChange = { updatedPassword = it },
+                            label = { Text("Password") }
                         )
                     }
                 }

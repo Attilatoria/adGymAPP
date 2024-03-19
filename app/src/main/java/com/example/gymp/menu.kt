@@ -38,10 +38,10 @@ fun Menu(navController : NavController){
             IconButton(onClick = { navController.navigate("set") }) {
                 Image(painter = painterResource(id = R.drawable.setting), contentDescription = "Settings",modifier = Modifier.size(50.dp))
             }
-            Spacer(modifier = Modifier.padding(10.dp))
-            IconButton(onClick = { navController.navigate("mes") }) {
-                Image(painter = painterResource(id = R.drawable.chat), contentDescription = "chat",modifier = Modifier.size(50.dp))
-            }
+//            Spacer(modifier = Modifier.padding(10.dp))
+//            IconButton(onClick = { navController.navigate("mes") }) {
+//                Image(painter = painterResource(id = R.drawable.chat), contentDescription = "chat",modifier = Modifier.size(50.dp))
+//            }
         }
     }
 }
