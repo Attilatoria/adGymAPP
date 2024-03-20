@@ -3,6 +3,7 @@ package com.example.gymp
 import android.content.Context
 import androidx.room.Dao
 import androidx.room.Database
+import androidx.room.Delete
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
@@ -58,8 +59,8 @@ interface ExerciceDao {
     @Query("SELECT * FROM Exercice WHERE idUserExercice = :userId")
     suspend fun getExercicesByUserId(userId: Int): List<Exercice>
 
-        @Query("DELETE FROM Exercice WHERE ExerciceName = :nameExercice AND idUserExercice = :userId")
-    suspend fun deleteExercice(nameExercice : String, userId: Int)
+    @Delete
+    suspend fun deleteExercice(exercice: Exercice)
 }
 //////////////////////////////////////////////////// Coach DB //////////////////////////////////////////////
 @Entity

@@ -53,7 +53,8 @@ fun DisplayExercisesFromDatabase(exerciceDao: ExerciceDao, navController : NavCo
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
                     GlobalScope.launch {
-                        exerciceDao.deleteExercice(globalExerciseName, userId)
+                        exerciceDao.deleteExercice(exercise)
+                        exercices.value = exercices.value.filter { it != exercise }
                     }
                 }) {
                     Text(text = "finished")
