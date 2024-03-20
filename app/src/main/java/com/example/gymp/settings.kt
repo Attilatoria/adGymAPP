@@ -47,7 +47,7 @@ fun settings(navController: NavController, userDao: UserDao) {
         ) {
             // Première partie
             Text(
-                text = "First Name: ${user?.Firstname ?: ""}",
+                text = "First Name: $updatedFirstName",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp
@@ -55,7 +55,7 @@ fun settings(navController: NavController, userDao: UserDao) {
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             // Deuxième partie
             Text(
-                text = "Last Name: ${user?.Lastname ?: ""}",
+                text = "Last Name: $updatedLastName",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp
@@ -63,7 +63,7 @@ fun settings(navController: NavController, userDao: UserDao) {
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             // Troisième partie
             Text(
-                text = "Email: ${user?.Email ?: ""}",
+                text = "Email: $updatedEmail",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp
@@ -71,7 +71,7 @@ fun settings(navController: NavController, userDao: UserDao) {
             Spacer(modifier = Modifier.padding(vertical = 15.dp))
             //quatrieme partie
             Text(
-                text = "Password: ${user?.Password ?: ""}",
+                text = "Password: $updatedPassword",
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 30.sp

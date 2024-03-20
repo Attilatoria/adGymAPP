@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -31,7 +32,7 @@ fun GymApp(exerciceDao: ExerciceDao, navController: NavController) {
     var trainingTime by remember { mutableStateOf("") }
     val selectedBodyParts = remember { mutableStateListOf<String>() }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Menu(navController)
 
         Spacer(modifier = Modifier.height(20.dp))
